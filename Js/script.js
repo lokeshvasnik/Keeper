@@ -1,3 +1,4 @@
+// Selection
 const btn = document.querySelector('.btn');
 
 btn.addEventListener('click', (e) => {
@@ -7,7 +8,10 @@ btn.addEventListener('click', (e) => {
 
   const username = document.getElementById('username').value;
 
-  let html = `<li class="listItems"> ${username}</li>`;
+  let html = `<li class="listItems" id="myText"> ${username}
+  <img title="Copy" class="copy" src="Images/copy.png" alt="COPY">
+  <img title="Delete" class="dustbin" src="Images/dustbin.png" alt="DUSTBIN">
+  </li>`;
 
   if (username.trim().length === 0) {
     return;
@@ -17,7 +21,24 @@ btn.addEventListener('click', (e) => {
 
   const users = document.querySelector('.listItems');
 
-  users.addEventListener('click', () => {
+  const dustbin = document.querySelector('.dustbin');
+
+  const copy = document.querySelector('.copy');
+
+  let text = document.getElementById('myText').textContent.trim();
+
+  copy.addEventListener('click', () => {
+    const copyContent = async () => {
+      try {
+        await navigator.clipboard.writeText(text);
+      } catch (err) {
+        console.log('Error');
+      }
+    };
+    copyContent();
+  });
+
+  dustbin.addEventListener('click', () => {
     users.classList.add('hidden');
   });
 });
